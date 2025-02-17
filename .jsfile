@@ -1,1 +1,161 @@
+const storyParts = {
+    start: {
+        text: 'You find yourself in a dark, misty street. The air is thick with suspense. What will you do?',
+        choices: [
+            { text: 'Explore the dark alley', next: 'alley' },
+            { text: 'Enter the mysterious mansion', next: 'mansion' }
+        ],
+    },
+    alley: {
+        text: 'The alley is narrow and filled with shadows. You hear footsteps behind you...',
+        choices: [
+            { text: 'Run!', next: 'run' },
+            { text: 'Turn around', next: 'turn' }
+        ],
+    },
+    mansion: {
+        text: 'The mansion looms before you, its windows like dark eyes watching your every move.',
+        choices: [
+            { text: 'Knock on the door', next: 'knock' },
+            { text: 'Peek through the window', next: 'peek' }
+        ],
+    },
+    run: {
+        text: 'You run as fast as you can, but the footsteps are getting closer...',
+        choices: [
+            { text: 'Hide behind a dumpster', next: 'hide' },
+            { text: 'Keep running', next: 'keepRunning' }
+        ],
+    },
+    turn: {
+        text: 'You turn around and see a shadowy figure. It steps closer...',
+        choices: [
+            { text: 'Confront the figure', next: 'confront' },
+            { text: 'Run away', next: 'run' }
+        ],
+    },
+    knock: {
+        text: 'You knock on the door, and it creaks open. Inside, it is pitch black...',
+        choices: [
+            { text: 'Enter', next: 'enter' },
+            { text: 'Run away', next: 'run' }
+        ],
+    },
+    peek: {
+        text: 'You peek through the window and see a figure inside. It notices you...',
+        choices: [
+            { text: 'Hide', next: 'hide' },
+            { text: 'Run away', next: 'run' }
+        ],
+    },
+    hide: {
+        text: 'You hide behind the dumpster, holding your breath. The footsteps pass by...',
+        choices: [
+            { text: 'Stay hidden', next: 'stayHidden' },
+            { text: 'Come out', next: 'comeOut' }
+        ],
+    },
+    keepRunning: {
+        text: 'You keep running until you reach the end of the alley. There is a door...',
+        choices: [
+            { text: 'Enter the door', next: 'enter' },
+            { text: 'Keep running', next: 'run' }
+        ],
+    },
+    confront: {
+        text: 'You confront the figure. It is a detective looking for clues...',
+        choices: [
+            { text: 'Talk to the detective', next: 'talk' },
+            { text: 'Run away', next: 'run' }
+        ],
+    },
+    enter: {
+        text: 'You enter the mansion, and the door slams shut behind you...',
+        choices: [
+            { text: 'Explore the mansion', next: 'explore' },
+            { text: 'Find a way out', next: 'findOut' }
+        ],
+    },
+    stayHidden: {
+        text: 'You stay hidden until the footsteps fade away...',
+        choices: [
+            { text: 'Come out', next: 'comeOut' }
+        ],
+    },
+    comeOut: {
+        text: 'You come out of hiding and continue your journey...',
+        choices: [
+            { text: 'Continue your journey', next: 'continue' }
+        ],
+    },
+    talk: {
+        text: 'You talk to the detective and he shares valuable information...',
+        choices: [
+            { text: 'Thank the detective', next: 'thank' },
+            { text: 'Continue your journey', next: 'continue' }
+        ],
+    },
+    explore: {
+        text: 'You explore the mansion and find hidden secrets...',
+        choices: [
+            { text: 'Keep exploring', next: 'keepExploring' },
+            { text: 'Find a way out', next: 'findOut' }
+        ],
+    },
+    findOut: {
+        text: 'You find a hidden passage that leads you out of the mansion...',
+        choices: [
+            { text: 'Continue your journey', next: 'continue' }
+        ],
+    },
+    thank: {
+        text: 'You thank the detective and continue your journey...',
+        choices: [
+            { text: 'Continue your journey', next: 'continue' }
+        ],
+    },
+    continue: {
+        text: 'Your journey continues with new mysteries to uncover...',
+        choices: [
+            { text: 'Explore the dark alley', next: 'alley' },
+            { text: 'Enter the mysterious mansion', next: 'mansion' }
+        ],
+    },
+    keepExploring: {
+        text: 'You keep exploring the mansion and discover a hidden room...',
+        choices: [
+            { text: 'Enter the hidden room', next: 'hiddenRoom' },
+            { text: 'Leave the mansion', next: 'leave' }
+        ],
+    },
+    hiddenRoom: {
+        text: 'The hidden room contains clues to the mystery. You take notes and leave...',
+        choices: [
+            { text: 'Continue your journey', next: 'continue' }
+        ],
+    },
+    leave: {
+        text: 'You leave the mansion and continue your journey...',
+        choices: [
+            { text: 'Continue your journey', next: 'continue' }
+        ],
+    }
+};
 
+const storyTextElement = document.getElementById('storyText');
+const choicesElement = document.getElementById('choices');
+
+function displayStoryPart(part) {
+    const storyPart = storyParts[part];
+    storyTextElement.innerText = storyPart.text;
+    choicesElement.innerHTML = '';
+
+    storyPart.choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.innerText = choice.text;
+        button.onclick = () => displayStoryPart(choice.next);
+        choicesElement.appendChild(button);
+    });
+}
+
+displayStoryPart('start');
